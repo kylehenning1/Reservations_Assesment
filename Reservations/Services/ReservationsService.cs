@@ -117,6 +117,8 @@ namespace Reservations.Services
             if (!lecturers.Any(x => x.Id == newReservation.LecturerId))
                 result |= ValidationResult.LecturerDoesNotExist;
 
+            if (result == 0)
+                result = ValidationResult.Ok;
             // TODO
             // Note that for reservation dates, we take into account only date and an hour, minutes and seconds don't matter.
 
