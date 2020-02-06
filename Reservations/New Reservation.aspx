@@ -3,59 +3,57 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head runat="server">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-
-        <title>Home</title>
-    </head>
-    <body>
-        <div class="navbar navbar-dark bg-dark box-shadow">
+<head runat="server">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <img src="https://cdns.iconmonstr.com/wp-content/assets/preview/2012/240/iconmonstr-calendar-3.png" alt="Calendar 3" width="20" height="20" style="margin-right:10px"/>
-              <strong>Reservations</strong>
-          </a>
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <img src="https://cdns.iconmonstr.com/wp-content/assets/preview/2012/240/iconmonstr-calendar-3.png" alt="Calendar 3" width="20" height="20" style="margin-right: 10px" />
+                <strong>Reservations</strong>
+            </a>
         </div>
-      </div>
-    <section class="jumbotron text-center">
-        <h1>Reservations</h1>
-        <p class="lead text-muted"><span class="font-italic">(.n)</span> The art of planning.</p>
-        <p>
-            <a href="Home.aspx" id="showBtn" class="btn btn-primary my-2">Show grid</a>
-            <a href="New Reservation.aspx" id="hideBtn" class="btn btn-secondary my-2">New Reservation</a>
-        </p>
-    </section>
-        <div class="container">
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col">
-            <form id="form1" runat="server">
                 <div>
-                    <div class="form-group row">
-                        <label for="datetimepicker1" class="col-sm-2 col-form-label">From</label>
-                        <div class="col-sm-10">
-                            <input id="datetimepicker1"  class="form-control " type="text" />
+                    <br />
+                    <div id="errorMessageDiv" class="alert alert-danger alert-dismissible fade show" style="display: none;">
+                        <strong>Error!</strong> A problem has been occurred while submitting your data.
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <div>
+                            <ul id="errorList">
+                            </ul>
                         </div>
-                        <div class="invalid-feedback" id="invalidFeedbackDTP1">
-                          To before somehting something.
+                    </div>
+                    <div id="successMessageDiv" class="alert alert-success" style="display: none;">
+                        <strong>Success!</strong> Reservation set.
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <h3>New Reservation</h3>
+                    <div class="form-group row">
+                        <label for="fromDateTimePicker" class="col-sm-2 col-form-label">From</label>
+                        <div class="col-sm-4">
+                            <input id="fromDateTimePicker" class="form-control " type="text" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="datetimepicker2" class="col-sm-2 col-form-label">To</label>
-                        <div class="col-sm-10">
-                            <input id="datetimepicker2" class="form-control" type="text" />
-                        </div>
-                        <div class="invalid-feedback" id="invalidFeedbackDTP2">
-                          To before somehting something.
+                        <label for="toDateTimePicker" class="col-sm-2 col-form-label">To</label>
+                        <div class="col-sm-4">
+                            <input id="toDateTimePicker" class="form-control" type="text" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -64,16 +62,7 @@
                             <select class="form-control" id="lectureHallSelect">
                             </select>
                         </div>
-                        <div class="invalid-feedback" id="invalidFeedbackHallSelect">
-                          Hall does not exist.
-                        </div>
-                        <label for="lblCapacity" class="col-sm-6 col-form-label">Capacity: 10</label>
-<%--                        <div class="col-sm-4">
-                            <span id="lblCapacity" class="label label-default"></span>
-                        </div>--%>
-                    </div>
-                    <div class="form-group row">
-
+                        <label for="lblCapacity" class="col-sm-6 col-form-label">Capacity: <span id="CapacitySpan"></span></label>
                     </div>
                     <div class="form-group row">
                         <label for="lecturerSelect" class="col-sm-2 col-form-label">Lecturer</label>
@@ -81,25 +70,27 @@
                             <select class="form-control" id="lecturerSelect">
                             </select>
                         </div>
-                        <div class="invalid-feedback" id="invalidFeedbackLecturerSelect">
-                          Lecturer does not exist.
-                        </div>
-                        <label for="lblSubject" class="col-sm-6 col-form-label">Subject: Technology</label>
-<%--                        <div class="col-sm-4">
-                            <span id="lblSubject" class="label label-default">10</span>
-                        </div>--%>
+                        <label for="lblSubject" class="col-sm-6 col-form-label">Subject: <span id="subjectSpan"></span></label>
                     </div>
-                    <button id="SaveBtn" type="button" class="btn btn-primary">Save</button>                          
-                    <button type="button" class="btn btn-light">Clear</button>
-	            </div>
-            </form>
+                    <button id="SaveBtn" type="button" class="btn btn-primary">Save</button>
+                    <a type="button" href="Home.aspx" class="btn btn-secondary">Back</a>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 <script type="text/javascript">
     var lectureHalls = [];
     var lecturers = [];
+
+    $("#SaveBtn").click(function () {
+        postNewReservation();
+    });
+
+    $('#fromDateTimePicker').datetimepicker();
+    $('#toDateTimePicker').datetimepicker();
+    var errorList = $("#errorList");
 
     function getLectureHalls() {
         $.getJSON("api/LectureHalls",
@@ -107,7 +98,7 @@
                 // Loop through the list of reservations.  
                 $.each(data, function (key, val) {
                     // Add a table row for the student.  
-                    $("#lectureHallSelect").append("<option value='" + val.Number + "'>" + val.Number + "</option>");
+                    $("#lectureHallSelect").append("<option data-capacity='" + val.Capacity + "' value='" + val.Number + "'>" + val.Number + "</option>");
                     var row = {
                         'Number': val.Number, 'Capacity': val.Capacity
                     };
@@ -122,7 +113,7 @@
                 // Loop through the list of reservations.  
                 $.each(data, function (key, val) {
                     // Add a table row for the student.  
-                    $("#lecturerSelect").append("<option value='" + val.Id + "'>" + val.Title + " " + val.Name + " " + val.Surname + "</option>");
+                    $("#lecturerSelect").append("<option data-subject='" + val.Subject + "' value='" + val.Id + "'>" + val.Title.charAt(0).toUpperCase() + val.Title.slice(1) + " " + val.Name + " " + val.Surname + "</option>");
                 });
             });
     }
@@ -141,8 +132,8 @@
     function postNewReservation() {
         var lectureHallId = $("#lectureHallSelect").val();
         var lecturerId = $("#lecturerSelect").val();
-        var fromDateTime = $("#datetimepicker1").val();
-        var toDateTime = $("#datetimepicker2").val();
+        var fromDateTime = $("#fromDateTimePicker").val();
+        var toDateTime = $("#toDateTimePicker").val();
 
         $.ajax({
             type: "POST",
@@ -151,28 +142,36 @@
             //data: { From: '5/14/2019 11:00:00 AM', To: '5/14/2019 10:00:00 AM', LectureHallNumber: '3', LecturerId: '4' },
             success: function (data) {
 
-                if ((data & 1) != 0) {
-                    alert("The from date must be the same as the to date.");
+                if ((data & 128) != 0) {
+                    $("#errorMessageDiv").hide();
+                    $("#successMessageDiv").show();
+                    errorList.children.length = 0;
                 }
-                if ((data & 2) != 0) {
-                    alert("The to date is set before the from date.");
-                }
-                if ((data & 4) != 0) {
-                    alert("A new reservation must be included inside working hours i.e. between 8 And 18.");
-                }
-                if ((data & 8) != 0) {
-                    alert("A new reservation may at most be 3 hours in duration.");
-                }
-                if ((data & 16) != 0) {
-                    alert("An existing reservation has overlapping hours in the same hall - Please adjust hours or hall.");
-                }
-                if ((data & 32) != 0) {
-                    $("#lecturerSelect").addClass("is-invalid");
-                }
-                if ((data & 64) != 0) {
-                    $("#lectureHallSelect").addClass("is-invalid");
-                }
-                console.log(data);                  
+                else 
+                    $("#errorMessageDiv").show();
+                
+                if ((data & 1) != 0) 
+                    errorList.append("<li>The from date must be the same as the to date.</li>");
+                
+                if ((data & 2) != 0) 
+                    errorList.append('<li>The to date is set before the from date.</li>');
+                
+                if ((data & 4) != 0) 
+                    errorList.append('<li>A new reservation must be included inside working hours i.e. between 8 And 18.</li>');
+                
+                if ((data & 8) != 0) 
+                    errorList.append('<li>A new reservation may at most be 3 hours in duration.</li>');
+                
+                if ((data & 16) != 0) 
+                    errorList.append('<li>An existing reservation has overlapping hours in the same hall - Please adjust hours or hall.</li>');
+                
+                if ((data & 32) != 0) 
+                    errorList.append('<li>Lecturer does not exist. Stop hacking.</li>');
+                
+                if ((data & 64) != 0) 
+                    errorList.append('<li>Hall does not exist. Stop hacking.</li>');
+
+                console.log(data);
             },
             error: function () {
                 alert("error");
@@ -180,15 +179,43 @@
             dataType: "json"
         });
     }
-    
-    $("#SaveBtn").click(function () {
-        postNewReservation();
+
+    $("#lectureHallSelect").change(function () {
+        $("#CapacitySpan").text($(this).find(':selected').data('capacity'));
     });
 
-    $('#datetimepicker1').datetimepicker();
-    $('#datetimepicker2').datetimepicker();
+    $("#lecturerSelect").change(function () {
+        $("#subjectSpan").text($(this).find(':selected').data('subject'));
+    });
+
+    var intializeSubjectSpan = function () {
+        setTimeout(function () {
+            $("#subjectSpan").text($("#lecturerSelect").find(':selected').data('subject'));
+        }, 400)
+    }
+    var intializeCapacitySpan = function () {
+        setTimeout(function () {
+            $("#CapacitySpan").text($("#lectureHallSelect").find(':selected').data('capacity'));
+        }, 400)
+    }
+
+    var initializeFromDate = function () {
+        var currentTime = new Date();
+        var convertedTime = moment(currentTime).format("YYYY/MM/DD HH:mm");
+        $("#fromDateTimePicker").val(convertedTime);
+    };
+
+    var initializeToDate = function () {
+        var currentTime = new Date();
+        var convertedTime = moment(currentTime).add(1, 'hours').format("YYYY/MM/DD HH:mm");
+        $("#toDateTimePicker").val(convertedTime);
+    };
 
     $(document).ready(getLectureHalls);
     $(document).ready(getLecturers);
+    $(document).ready(intializeSubjectSpan);
+    $(document).ready(intializeCapacitySpan);
+    $(document).ready(initializeFromDate);
+    $(document).ready(initializeToDate);
 
 </script>
